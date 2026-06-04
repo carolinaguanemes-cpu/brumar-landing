@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)file:///Users/carolinaguaneme/Downloads/BRUMAR_Registro_Pedidos.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRUMAR - Registro de Pedidos</title>
+  <link rel="stylesheet" href="./BRUMAR - Registro de Pedidos_files/tabler-icons.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      margin-bottom: 30px;
+      text-align: center;
+      border-bottom: 2px solid #1a1a1a;
+      padding-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .header p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-box {
+      background: #fafafa;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-grid.full {
+      grid-template-columns: 1fr;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #1a1a1a;
+      box-shadow: 0 0 0 3px rgba(26,26,26,0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: 2fr 80px 80px;
+      gap: 8px;
+      align-items: end;
+      margin-bottom: 12px;
+    }
+
+    .product-row:last-child {
+      margin-bottom: 0;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #333;
+    }
+
+    button:hover {
+      background: #f5f5f5;
+      border-color: #999;
+    }
+
+    button.primary {
+      background: #1a1a1a;
+      color: white;
+      border-color: #1a1a1a;
+    }
+
+    button.primary:hover {
+      background: #333;
+    }
+
+    button.danger {
+      color: #d32f2f;
+    }
+
+    button.danger:hover {
+      background: #ffebee;
+    }
+
+    button.add-product {
+      width: 100%;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button-group button {
+      flex: 1;
+    }
+
+    .success-msg {
+      display: none;
+      padding: 12px;
+      background: #e8f5e9;
+      border: 1px solid #81c784;
+      border-radius: 6px;
+      color: #2e7d32;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .success-msg.show {
+      display: block;
+    }
+
+    .orders-section {
+      margin-top: 40px;
+      display: none;
+    }
+
+    .orders-section.show {
+      display: block;
+    }
+
+    .orders-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .orders-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #fafafa;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #555;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tbody tr:hover {
+      background: #f5f5f5;
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: #d32f2f;
+      cursor: pointer;
+      padding: 4px;
+      font-size: 16px;
+    }
+
+    .delete-btn:hover {
+      background: #ffebee;
+    }
+
+    .truncate {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border: 1px solid #90caf9;
+      border-radius: 6px;
+      padding: 12px;
+      color: #1565c0;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Registro de Pedidos BRUMAR</h1>
+      <p>Sistema de gestión interna - Los datos se guardan automáticamente en tu navegador</p>
+    </div>
+
+    <div class="info-box">
+      ℹ️ Este formulario funciona sin conexión a internet. Todos tus datos se guardan localmente en tu navegador. Haz backup del Excel regularmente.
+    </div>
+
+    <!-- Formulario -->
+    <form id="orderForm">
+      <!-- Cliente -->
+      <div class="section">
+        <span class="section-title">Cliente</span>
+        <div class="section-box">
+          <div class="form-grid">
+            <input type="text" id="clientName" placeholder="Nombre o razón social" required="">
+            <input type="text" id="clientContact" placeholder="Teléfono o email">
+          </div>
+          <div class="form-grid full" style="margin-top: 12px;">
+            <select id="clientType" required="">
+              <option value="">Selecciona tipo de cliente</option>
+              <option value="B2B">B2B (Tienda/Supermercado)</option>
+              <option value="Distribuidor">Distribuidor</option>
+              <option value="B2C">B2C (Cliente final)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fechas -->
+      <div class="section">
+        <span class="section-title">Fechas</span>
+        <div class="section-box">
+          <div class="form-grid">
+            <div>
+              <label style="display: block; font-size: 12px; margin-bottom: 6px; color: #666;">Fecha del pedido</label>
+              <input type="date" id="orderDate" required="">
+            </div>
+            <div>
+              <label style="display: block; font-size: 12px; margin-bottom: 6px; color: #666;">Fecha de entrega</label>
+              <input type="date" id="deliveryDate" required="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Productos -->
+      <div class="section">
+        <span class="section-title">Productos</span>
+        <div class="section-box">
+          <div id="productsList">
+        <div class="product-row">
+          <select class="product-select" required="">
+            <option value="">Seleccionar producto</option>
+            <option value="Yogurt griego natural 920g">Yogurt griego natural 920g - $27.000</option>
+            <option value="Yogurt griego frutal 920g">Yogurt griego frutal 920g - $34.000</option>
+            <option value="Yogurt griego natural 420g">Yogurt griego natural 420g - $15.000</option>
+            <option value="Yogurt griego frutal 420g">Yogurt griego frutal 420g - $19.000</option>
+            <option value="Yogurt griego 100g">Yogurt griego 100g - $4.800</option>
+            <option value="Kéfir 1L">Kéfir 1L - $24.000</option>
+            <option value="Kéfir 2L">Kéfir 2L - $44.000</option>
+            <option value="Yogurt bebible 1L">Yogurt bebible 1L - $14.000</option>
+            <option value="Yogurt bebible 2L">Yogurt bebible 2L - $26.000</option>
+            <option value="Yogurt personal">Yogurt personal (botella) - $4.500</option>
+            <option value="Kumis 1L">Kumis 1L - $13.000</option>
+            <option value="Kumis 2L">Kumis 2L - $24.000</option>
+            <option value="Mozzarella 250g">Mozzarella 250g - $13.000</option>
+            <option value="Mozzarella 500g">Mozzarella 500g - $22.000</option>
+            <option value="Queso criollo 250g">Queso criollo 250g - $8.500</option>
+            <option value="Queso criollo 500g">Queso criollo 500g - $15.000</option>
+            <option value="Queso criollo 1kg">Queso criollo 1kg - $28.000</option>
+            <option value="Queso pera 250g">Queso pera 250g - $13.000</option>
+            <option value="Queso pera 500g">Queso pera 500g - $22.000</option>
+            <option value="Snack x6 con bocadillo">Snack x6 con bocadillo - $17.000</option>
+            <option value="Snack x6 solo queso">Snack x6 solo queso - $19.000</option>
+          </select>
+          <input type="number" class="product-qty" min="1" value="1">
+          <button type="button" class="remove-product danger" title="Eliminar">
+            <span style="font-size: 16px;">🗑️</span>
+          </button>
+        </div>
+      </div>
+          <button type="button" class="add-product" id="addProductBtn">+ Agregar producto</button>
+        </div>
+      </div>
+
+      <!-- Pago y estado -->
+      <div class="section">
+        <span class="section-title">Pago y Estado</span>
+        <div class="section-box">
+          <div class="form-grid">
+            <div>
+              <label style="display: block; font-size: 12px; margin-bottom: 6px; color: #666;">Forma de pago</label>
+              <select id="paymentMethod" required="">
+                <option value="">Seleccionar</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Crédito">Crédito</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 12px; margin-bottom: 6px; color: #666;">Estado del pedido</label>
+              <select id="orderStatus" required="">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Confirmado">Confirmado</option>
+                <option value="En producción">En producción</option>
+                <option value="Listo para entregar">Listo para entregar</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="section">
+        <span class="section-title">Observaciones</span>
+        <div class="section-box">
+          <textarea id="notes" placeholder="Instrucciones especiales, cambios, notas..."></textarea>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="button-group">
+        <button type="button" id="resetBtn">Limpiar</button>
+        <button type="submit" class="primary">➕ Guardar pedido</button>
+      </div>
+
+      <div class="success-msg" id="successMsg">✓ Pedido registrado correctamente</div>
+    </form>
+
+    <!-- Tabla de pedidos -->
+    <div class="orders-section show" id="ordersSection">
+      <div class="orders-header">
+        <h2>Pedidos registrados</h2>
+        <button type="button" id="downloadBtn" class="primary">
+          📥 Descargar Excel
+        </button>
+      </div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Tipo</th>
+              <th>Fecha pedido</th>
+              <th>Entrega</th>
+              <th>Productos</th>
+              <th>Pago</th>
+              <th>Estado</th>
+              <th style="text-align: center;">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"><tr>
+          <td>carolina</td>
+          <td>B2C</td>
+          <td>2026-06-04</td>
+          <td>2026-06-04</td>
+          <td><div class="truncate">Yogurt griego natural 920g (×2); Kéfir 1L (×1)</div></td>
+          <td>Efectivo</td>
+          <td>Confirmado</td>
+          <td style="text-align: center;">
+            <button type="button" class="delete-btn" data-id="1780534422727" title="Eliminar">🗑️</button>
+          </td>
+        </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="./BRUMAR - Registro de Pedidos_files/xlsx.min.js"></script>
+  <script>
+    const form = document.getElementById('orderForm');
+    const productsList = document.getElementById('productsList');
+    const addProductBtn = document.getElementById('addProductBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const successMsg = document.getElementById('successMsg');
+    const ordersSection = document.getElementById('ordersSection');
+    const tableBody = document.getElementById('tableBody');
+
+    let ordersData = JSON.parse(localStorage.getItem('brumarOrders')) || [];
+
+    // Set today's date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('orderDate').value = today;
+
+    // Add product row
+    addProductBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const newRow = document.createElement('div');
+      newRow.className = 'product-row';
+      newRow.innerHTML = `
+        <select class="product-select" required>
+          <option value="">Seleccionar producto</option>
+          <option value="Yogurt griego natural 920g">Yogurt griego natural 920g - $27.000</option>
+          <option value="Yogurt griego frutal 920g">Yogurt griego frutal 920g - $34.000</option>
+          <option value="Yogurt griego natural 420g">Yogurt griego natural 420g - $15.000</option>
+          <option value="Yogurt griego frutal 420g">Yogurt griego frutal 420g - $19.000</option>
+          <option value="Yogurt griego 100g">Yogurt griego 100g - $4.800</option>
+          <option value="Kéfir 1L">Kéfir 1L - $24.000</option>
+          <option value="Kéfir 2L">Kéfir 2L - $44.000</option>
+          <option value="Yogurt bebible 1L">Yogurt bebible 1L - $14.000</option>
+          <option value="Yogurt bebible 2L">Yogurt bebible 2L - $26.000</option>
+          <option value="Yogurt personal">Yogurt personal (botella) - $4.500</option>
+          <option value="Kumis 1L">Kumis 1L - $13.000</option>
+          <option value="Kumis 2L">Kumis 2L - $24.000</option>
+          <option value="Mozzarella 250g">Mozzarella 250g - $13.000</option>
+          <option value="Mozzarella 500g">Mozzarella 500g - $22.000</option>
+          <option value="Queso criollo 250g">Queso criollo 250g - $8.500</option>
+          <option value="Queso criollo 500g">Queso criollo 500g - $15.000</option>
+          <option value="Queso criollo 1kg">Queso criollo 1kg - $28.000</option>
+          <option value="Queso pera 250g">Queso pera 250g - $13.000</option>
+          <option value="Queso pera 500g">Queso pera 500g - $22.000</option>
+          <option value="Snack x6 con bocadillo">Snack x6 con bocadillo - $17.000</option>
+          <option value="Snack x6 solo queso">Snack x6 solo queso - $19.000</option>
+        </select>
+        <input type="number" class="product-qty" min="1" value="1">
+        <button type="button" class="remove-product danger" title="Eliminar">
+          <span style="font-size: 16px;">🗑️</span>
+        </button>
+      `;
+      productsList.appendChild(newRow);
+    });
+
+    // Remove product
+    productsList.addEventListener('click', (e) => {
+      if (e.target.closest('.remove-product')) {
+        e.preventDefault();
+        e.target.closest('.product-row').remove();
+      }
+    });
+
+    // Reset form
+    resetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      form.reset();
+      document.getElementById('orderDate').value = today;
+      resetProductsList();
+    });
+
+    function resetProductsList() {
+      productsList.innerHTML = `
+        <div class="product-row">
+          <select class="product-select" required>
+            <option value="">Seleccionar producto</option>
+            <option value="Yogurt griego natural 920g">Yogurt griego natural 920g - $27.000</option>
+            <option value="Yogurt griego frutal 920g">Yogurt griego frutal 920g - $34.000</option>
+            <option value="Yogurt griego natural 420g">Yogurt griego natural 420g - $15.000</option>
+            <option value="Yogurt griego frutal 420g">Yogurt griego frutal 420g - $19.000</option>
+            <option value="Yogurt griego 100g">Yogurt griego 100g - $4.800</option>
+            <option value="Kéfir 1L">Kéfir 1L - $24.000</option>
+            <option value="Kéfir 2L">Kéfir 2L - $44.000</option>
+            <option value="Yogurt bebible 1L">Yogurt bebible 1L - $14.000</option>
+            <option value="Yogurt bebible 2L">Yogurt bebible 2L - $26.000</option>
+            <option value="Yogurt personal">Yogurt personal (botella) - $4.500</option>
+            <option value="Kumis 1L">Kumis 1L - $13.000</option>
+            <option value="Kumis 2L">Kumis 2L - $24.000</option>
+            <option value="Mozzarella 250g">Mozzarella 250g - $13.000</option>
+            <option value="Mozzarella 500g">Mozzarella 500g - $22.000</option>
+            <option value="Queso criollo 250g">Queso criollo 250g - $8.500</option>
+            <option value="Queso criollo 500g">Queso criollo 500g - $15.000</option>
+            <option value="Queso criollo 1kg">Queso criollo 1kg - $28.000</option>
+            <option value="Queso pera 250g">Queso pera 250g - $13.000</option>
+            <option value="Queso pera 500g">Queso pera 500g - $22.000</option>
+            <option value="Snack x6 con bocadillo">Snack x6 con bocadillo - $17.000</option>
+            <option value="Snack x6 solo queso">Snack x6 solo queso - $19.000</option>
+          </select>
+          <input type="number" class="product-qty" min="1" value="1">
+          <button type="button" class="remove-product danger" title="Eliminar">
+            <span style="font-size: 16px;">🗑️</span>
+          </button>
+        </div>
+      `;
+    }
+
+    // Save order
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const clientName = document.getElementById('clientName').value;
+      const clientContact = document.getElementById('clientContact').value;
+      const clientType = document.getElementById('clientType').value;
+      const orderDate = document.getElementById('orderDate').value;
+      const deliveryDate = document.getElementById('deliveryDate').value;
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const orderStatus = document.getElementById('orderStatus').value;
+      const notes = document.getElementById('notes').value;
+
+      const productRows = productsList.querySelectorAll('.product-row');
+      const products = [];
+      productRows.forEach(row => {
+        const product = row.querySelector('.product-select').value;
+        const qty = row.querySelector('.product-qty').value;
+        if (product) {
+          products.push(`${product} (×${qty})`);
+        }
+      });
+
+      const order = {
+        id: Date.now(),
+        cliente: clientName,
+        contacto: clientContact,
+        tipo: clientType,
+        fechaPedido: orderDate,
+        fechaEntrega: deliveryDate,
+        productos: products.join('; '),
+        pago: paymentMethod,
+        estado: orderStatus,
+        notas: notes,
+        registroHora: new Date().toLocaleTimeString()
+      };
+
+      ordersData.push(order);
+      localStorage.setItem('brumarOrders', JSON.stringify(ordersData));
+
+      renderTable();
+      form.reset();
+      document.getElementById('orderDate').value = today;
+      resetProductsList();
+
+      successMsg.classList.add('show');
+      setTimeout(() => {
+        successMsg.classList.remove('show');
+      }, 3000);
+    });
+
+    // Render table
+    function renderTable() {
+      if (ordersData.length === 0) {
+        ordersSection.classList.remove('show');
+        return;
+      }
+
+      ordersSection.classList.add('show');
+      tableBody.innerHTML = '';
+
+      ordersData.forEach((order, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${order.cliente}</td>
+          <td>${order.tipo}</td>
+          <td>${order.fechaPedido}</td>
+          <td>${order.fechaEntrega}</td>
+          <td><div class="truncate">${order.productos}</div></td>
+          <td>${order.pago}</td>
+          <td>${order.estado}</td>
+          <td style="text-align: center;">
+            <button type="button" class="delete-btn" data-id="${order.id}" title="Eliminar">🗑️</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = parseInt(e.currentTarget.dataset.id);
+          ordersData = ordersData.filter(o => o.id !== id);
+          localStorage.setItem('brumarOrders', JSON.stringify(ordersData));
+          renderTable();
+        });
+      });
+    }
+
+    // Download Excel
+    downloadBtn.addEventListener('click', () => {
+      const workbook = XLSX.utils.book_new();
+      const worksheet_data = [
+        ['Cliente', 'Contacto', 'Tipo', 'Fecha Pedido', 'Fecha Entrega', 'Productos', 'Forma Pago', 'Estado', 'Notas', 'Hora Registro']
+      ];
+
+      ordersData.forEach(order => {
+        worksheet_data.push([
+          order.cliente,
+          order.contacto,
+          order.tipo,
+          order.fechaPedido,
+          order.fechaEntrega,
+          order.productos,
+          order.pago,
+          order.estado,
+          order.notas,
+          order.registroHora
+        ]);
+      });
+
+      const worksheet = XLSX.utils.aoa_to_sheet(worksheet_data);
+      worksheet['!cols'] = [
+        {wch: 20},
+        {wch: 15},
+        {wch: 15},
+        {wch: 12},
+        {wch: 12},
+        {wch: 40},
+        {wch: 12},
+        {wch: 15},
+        {wch: 25},
+        {wch: 12}
+      ];
+
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Pedidos');
+      XLSX.writeFile(workbook, `BRUMAR_Pedidos_${new Date().toISOString().split('T')[0]}.xlsx`);
+
+      downloadBtn.textContent = '✓ Descargado';
+      setTimeout(() => {
+        downloadBtn.innerHTML = '📥 Descargar Excel';
+      }, 2000);
+    });
+
+    renderTable();
+  </script>
+
+</body></html>
